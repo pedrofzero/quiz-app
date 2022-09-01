@@ -1,51 +1,38 @@
+require('dotenv').config()
 const express = require('express')
-const app = express()
+const app = express();
 const bodyParser = require('body-parser')
-const bcrypt = require('bcrypt')
+const cors = require('cors');
+const mongoose = require('mongoose')
+const cookieparser = require('cookie-parser')
+const verifyJWT = require('./middleware/verifyJWT.js');
 
+
+// cors
+app.use(cors({ credentials: true, origin: 'http://localhost:3000' }))
+
+// json
 app.use(express.json())
-app.use(bodyParser.urlencoded({
-    extended: true
-  }));
 
-const users = []
+// parsing
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieparser())
 
-app.get('/users', (req, res) => {
-    res.json(users);
-})
+// routes
+app.use('/auth', require('./routes/auth.js'))
 
-app.post('/createUser', async (req, res) => {
-    try {
-        const salt = await bcrypt.genSalt()
-        const hashedPassword = await bcrypt.hash(req.body.password, salt)
-        console.log("salt: " + salt)
-        console.log("hashed password: " + hashedPassword)
+app.use(verifyJWT)
+app.use('/quiz/', require('./routes/quiz.js'))
+app.use('/users', require('./routes/users.js'))
 
-        const user = { name: req.body.name, password: hashedPassword }
-        users.push(user)
-        res.status(201).send()
-    } catch {
-        res.status(500).send()
-    }
+const main = async () => {
+  const connect = await mongoose.connect(process.env.MONGO_URL)
+}
 
-})
+main()
 
-app.post('/users/login', async (req, res) => {
-    const user = users.find(user => user.name === req.body.name)
-    if (user == null) {
-        return res.status(400).send("Cannot find user")
-    }
-    try {
-        if (await bcrypt.compare(req.body.password, user.password)) {
-            res.send('success')
-        } else {
-            res.send('not allowed')
-        }
-    } catch {
-        res.status(500).send()
-    }
-})
 
+// server 
 app.listen(8000, () => {
-    console.log("Server running successfully.")
+  console.log("Server running successfully.")
 })
