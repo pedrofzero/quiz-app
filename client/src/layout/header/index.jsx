@@ -1,13 +1,18 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
 import { Box, Stack, Button } from '@mui/material'
-import MenuIcon from '@mui/icons-material/Menu';
+import { logout } from 'helpers/api';
 
 const Header = () => {
 
   const navigate = useNavigate();
   const path = window.location.pathname;
-  console.log(path)
+
+  const handleSubmit = async () => {
+    await logout();
+    localStorage.removeItem('access_token')
+    navigate('/login')
+  }
 
   return (
     <>
@@ -37,13 +42,14 @@ const Header = () => {
           </Stack>
         </Box>
       }
-      {path != '/register' && path != '/login' &&
+      {path !== '/register' && path !== '/login' &&
         <Box sx={{ height: '50px', m: 0, p: 0, px: 4 }}>
           <Stack direction='row' justifyContent='space-between' sx={{ m: 0, p: 0, height: '100%', alignItems: 'center', display: 'flex' }}>
-            <h4 style={{ margin: 0, padding: 0 }}>Quiz</h4>
+            <h4 onClick={() => navigate('/home')} style={{ margin: 0, padding: 0 }}>Quizy</h4>
             <Stack direction='row' spacing={8}>
               <h5 style={{ color: '#848282' }}>Browse</h5>
               <h5 style={{ color: '#848282' }}>My quizzes</h5>
+              <h5 onClick={() => handleSubmit() }style={{ color: '#848282' }}>Logout</h5>
             </Stack>
             <Stack direction='row' spacing={4}>
               <Button onClick={() => navigate('/createQuiz')} variant='contained' sx={{ backgroundColor: '#327490' }}>
@@ -57,11 +63,6 @@ const Header = () => {
   )
 }
 
-const styles = {
-  navbar: {
-    height: '80px',
-    border: '1px red solid',
-  }
-}
+
 
 export default Header

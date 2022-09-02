@@ -25,14 +25,15 @@ app.use(verifyJWT)
 app.use('/quiz/', require('./routes/quiz.js'))
 app.use('/users', require('./routes/users.js'))
 
+
+// Connect to MongoDB
 const main = async () => {
   const connect = await mongoose.connect(process.env.MONGO_URL)
 }
-
 main()
 
 
-// server 
+// Listen port 
 app.listen(8000, () => {
   console.log("Server running successfully.")
 })

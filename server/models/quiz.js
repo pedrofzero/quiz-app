@@ -35,17 +35,17 @@ const quizSchema = mongoose.Schema({
                 required: true,
                 maxLength: 50
             },
-            question1: {
+            wrongAnswer1: {
                 type: String,
                 required: true,
                 maxLength: 50
             },
-            question2: {
+            wrongAnswer2: {
                 type: String,
                 required: true,
                 maxLength: 50
             },
-            question3: {
+            wrongAnswer3: {
                 type: String,
                 required: true,
                 maxLength: 50

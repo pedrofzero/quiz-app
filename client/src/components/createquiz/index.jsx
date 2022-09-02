@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { Box } from '@mui/material'
 import FirstStep from './firstStep';
+import SecondStep from './secondStep';
+import AddQuestion from './addQuestion';
 
 const CreateQuiz = () => {
 
@@ -10,24 +12,29 @@ const CreateQuiz = () => {
     setPage(page + 1)
   }
 
+  const previousPage = () => {
+    setPage(page - 1)
+  }
+
 
   const [quizData, setQuizData] = useState({
     name: '',
     category: '',
-    description: ''
+    description: '',
+    questions: []
   })
 
   const handlePages = () => {
     switch (page) {
       case 0: return <FirstStep quizData={quizData} setQuizData={setQuizData} nextPage={nextPage} />
-      case 1: return <SecondStep  quizData={quizData} setQuizData={setQuizData} nextPage={nextPage} />
-      // case 2: return <ThirdStep />
+      case 1: return <SecondStep quizData={quizData} setQuizData={setQuizData} nextPage={nextPage} previousPage={previousPage} />
+      case 2: return <AddQuestion quizData={quizData} setQuizData={setQuizData} previousPage={previousPage} />
     }
 
   }
 
-  return (
-    <Box sx={{ textAlign: 'center', margin: '0 auto', marginTop: '100px', width: '1300px', height: '800px', border: '1px red solid' }}>
+  return ( // textAlign: center?
+    <Box sx={{ margin: '0 auto', marginTop: '100px', width: '1300px', height: '800px', border: '1px red solid' }}>
       {handlePages()}
     </Box>
   )

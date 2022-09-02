@@ -1,23 +1,20 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button, Input, TextField } from '@mui/material';
 import { api } from 'helpers/api';
+import { login } from 'helpers/api';
+import { useAuth } from 'hooks/useAuth';
 
 const Login = () => {
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const navigate = useNavigate();
 
-    api.post(`auth/login`, {
-      username: username,
-      password: password
-    })
-      .then(response => {
-        console.log(response.data)
-        localStorage.setItem("user_token", response.data.accessToken)
-      })
+  const handleSubmit = async () => {
+    await login(username, password)
+    navigate('/home')
   }
 
   return (
@@ -36,7 +33,7 @@ const Login = () => {
           label={"Password"}
           style={{ paddingBottom: '30px' }}
         />
-        <Button onClick={(e) => handleSubmit(e)} variant='contained'>Log in</Button>
+        <Button onClick={(e) => handleSubmit()} variant='contained'>Log in</Button>
       </div>
     </div>
   )

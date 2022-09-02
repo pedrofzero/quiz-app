@@ -1,9 +1,9 @@
-const { login, register, refreshToken } = require('../controllers/auth')
+const { login, register, refreshToken, logout } = require('../controllers/auth')
 const router = require('express').Router()
 
 router.post('/login', login)
-router.post('/verify', refreshToken)
 router.post('/register', register)
-router.post('')
+router.get('/refreshToken', refreshToken)
+router.get('/logout', logout)
 
 module.exports = router
