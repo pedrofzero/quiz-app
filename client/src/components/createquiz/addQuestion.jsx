@@ -1,7 +1,10 @@
 import React, { useState } from 'react'
+import useWindowSize from 'hooks/useWindowSize'
 import { Box, Grid, Button, Stack, InputLabel, TextField, Checkbox, Select, MenuItem } from '@mui/material'
 
 const AddQuestion = ({ quizData, setQuizData, previousPage }) => {
+
+  const size = useWindowSize();
 
   const [question, setQuestion] = useState(
     {
@@ -30,10 +33,10 @@ const AddQuestion = ({ quizData, setQuizData, previousPage }) => {
         <Box sx={{ mt: '100px', px: 4 }}>
           <h3>Question</h3>
 
-          <Grid container sx={{ pt: 4 }}>
+          <Grid container sx={{ pt: 4, border: '1px red solid' }}>
 
             {/* Question */}
-            <Grid item sm={6}>
+            <Grid item lg={12} xl={6}>
               <InputLabel htmlFor="standard-adornment-amount">What is the name of your question?</InputLabel>
               <TextField
                 value={question.question}
@@ -41,20 +44,20 @@ const AddQuestion = ({ quizData, setQuizData, previousPage }) => {
                 id="input-with-icon-textfield"
                 label="Quiz"
                 variant="outlined"
-                sx={{ m: 1, width: '50ch' }}
+                sx={{ m: 1, width: '25ch' }}
               />
             </Grid>
 
             {/* Time limit */}
-            <Grid item sm={6}>
-            <InputLabel htmlFor="standard-adornment-amount">What is the the question's time limit?</InputLabel>
+            <Grid item lg={12} xl={6}>
+              <InputLabel htmlFor="standard-adornment-amount">What is the the question's time limit?</InputLabel>
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
                 value={quizData.timeLimit}
                 label="Time"
                 onChange={(e) => setQuestion({ ...question, timeLimit: e.target.value })}
-                sx={{ m: 1, width: '50ch' }}
+                sx={{ m: 1, width: '25ch' }}
               >
                 <MenuItem value={20}>20 sec</MenuItem>
                 <MenuItem value={30}>30 sec</MenuItem>
@@ -63,7 +66,7 @@ const AddQuestion = ({ quizData, setQuizData, previousPage }) => {
             </Grid>
 
             {/* Answer 1 */}
-            <Grid item sm={6} sx={{ m: 0, pt: 2 }}>
+            <Grid item lg={12} xl={6} sx={{ m: 0, pt: 2 }}>
               <InputLabel htmlFor="standard-adornment-amount" >Answer 1</InputLabel>
               <TextField
                 value={question.answer}
@@ -71,13 +74,13 @@ const AddQuestion = ({ quizData, setQuizData, previousPage }) => {
                 id="input-with-icon-textfield"
                 label=" "
                 variant="outlined"
-                sx={{ m: 1, width: '50ch' }}
+                sx={{ m: 1, width: '25ch' }}
               />
               <Checkbox defaultChecked color="success" />
             </Grid>
 
             {/* Answer 2 */}
-            <Grid item sm={6}>
+            <Grid item lg={12} xl={6} >
               <InputLabel htmlFor="standard-adornment-amount">Answer 2</InputLabel>
               <TextField
                 value={question.wrongAnswer1}
@@ -85,13 +88,13 @@ const AddQuestion = ({ quizData, setQuizData, previousPage }) => {
                 id="input-with-icon-textfield"
                 label=" "
                 variant="outlined"
-                sx={{ m: 1, width: '50ch' }}
+                sx={{ m: 1, width: '25ch' }}
               />
               <Checkbox defaultChecked color="success" />
             </Grid>
 
             {/* Answer 4 */}
-            <Grid item sm={6}>
+            <Grid item lg={12} xl={6}>
               <InputLabel htmlFor="standard-adornment-amount">Answer 3</InputLabel>
               <TextField
                 value={question.wrongAnswer2}
@@ -99,13 +102,13 @@ const AddQuestion = ({ quizData, setQuizData, previousPage }) => {
                 id="input-with-icon-textfield"
                 label="Quiz"
                 variant="outlined"
-                sx={{ m: 1, width: '50ch' }}
+                sx={{ m: 1, width: '25ch' }}
               />
               <Checkbox defaultChecked color="success" />
             </Grid>
 
             {/* Answer 4 */}
-            <Grid item sm={6}>
+            <Grid item lg={12} xl={6} >
               <InputLabel htmlFor="standard-adornment-amount">Answer 4</InputLabel>
               <TextField
                 value={question.wrongAnswer3}
@@ -113,7 +116,7 @@ const AddQuestion = ({ quizData, setQuizData, previousPage }) => {
                 id="input-with-icon-textfield"
                 label="Quiz"
                 variant="outlined"
-                sx={{ m: 1, width: '50ch' }}
+                sx={{ m: 1, width: '25ch' }}
               />
               <Checkbox defaultChecked color="success" />
             </Grid>

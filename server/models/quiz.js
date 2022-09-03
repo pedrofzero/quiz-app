@@ -17,6 +17,16 @@ const quizSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'users'
     },
+    image: {
+        type: String,
+        required: false
+    },
+    timesPlayed: {
+        type: Number,
+        required: true,
+        default: 0
+    },
+    
     questions:
     [
         {

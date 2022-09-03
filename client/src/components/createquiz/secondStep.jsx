@@ -3,19 +3,21 @@ import { Box, Grid, Container, TextField, InputLabel, Button, Stack } from '@mui
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
-import { api } from 'helpers/api'
+import { api, createQuiz } from 'helpers/api'
 
 
 const SecondStep = ({ quizData, setQuizData, nextPage, previousPage }) => {
 
-    const token = localStorage.getItem('user_token')
+    const token = localStorage.getItem('access_token')
 
     const config = {
         headers: { Authorization: `Bearer ${token}` }
     };
 
-    const handleSubmit = () => {
-        api.post('/quiz/createQuiz', quizData, config)
+    const handleSubmit = async () => {
+        await setQuizData({...quizData, creator: localStorage.getItem('user')})
+        console.log(quizData)
+        createQuiz(quizData.name, quizData.description, quizData.category, quizData.questions, quizData.creator)
     }
 
     const deleteQuestion = async (index) => {

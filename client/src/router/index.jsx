@@ -5,7 +5,9 @@ import Home from '../components/home'
 import Login from '../components/login'
 import Register from '../components/register'
 import CreateQuiz from 'components/createquiz'
+import Quizes from 'components/quizes'
 import { ProtectedRoute } from './ProtectedRoute'
+import PlayQuiz from 'components/playquiz'
 
 const Router = () => {
 
@@ -14,23 +16,38 @@ const Router = () => {
             <BrowserRouter>
                 <AppLayout>
                     <Routes>
-                        <Route index
-                            element={
-                                <ProtectedRoute>
-                                    <Home />
-                                </ProtectedRoute>
-                            }
+                    <Route exact path="/" element={
+                            <ProtectedRoute>
+                                <Home />
+                            </ProtectedRoute>
+                        }
+                        />
+                        <Route exact path="/home" element={
+                            <ProtectedRoute>
+                                <Home />
+                            </ProtectedRoute>
+                        }
+                        />
+                        <Route exact path="/createquiz" element={
+                            <ProtectedRoute>
+                                <CreateQuiz />
+                            </ProtectedRoute>
+                        }
+                        />
+                        <Route exact path="/quizes/:username" element={
+                            <ProtectedRoute>
+                                <Quizes /> 
+                            </ProtectedRoute>
+                        }
+                        />
+                        <Route exact path="/play/:id" element={
+                            <ProtectedRoute>
+                                <PlayQuiz /> 
+                            </ProtectedRoute>
+                        } 
                         />
 
-                        <Route exact path="/home"
-                            element={
-                                <ProtectedRoute>
-                                    <Home />
-                                </ProtectedRoute>
-                            }
-                        />
                         <Route exact path="/login" element={<Login />} />
-                        <Route exact path="/createQuiz" element={<CreateQuiz />} />
                         <Route exact path="/register" element={<Register />} />
                     </Routes>
                 </AppLayout>

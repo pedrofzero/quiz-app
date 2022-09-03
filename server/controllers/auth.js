@@ -25,12 +25,13 @@ const login = async (req, res) => {
                     const currentPassword = user.password;
                     const match = await bcrypt.compare(password, currentPassword)
                     if (match) {
-                        const accessToken = jwt.sign({ username }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '5m' })
+                        const accessToken = jwt.sign({ username }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '30m' })
                         const refreshToken = jwt.sign({ username }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '1d' })
 
                         // res.cookie('access_token', accessToken, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 })
+
                         res.cookie('refresh_token', refreshToken, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 })
-                        res.json({ success: true, accessToken })
+                        res.json({ success: true, username, accessToken })
                     } else {
                         res.status(500).send('Password does not match.')
                     }
@@ -48,7 +49,6 @@ const register = async (req, res) => {
     const { email, username, password } = req.body;
 
     try {
-
         UserModel.findOne({ username: username }, (err, user) => {
             if (user) {
                 res.status(401).send('User already exists.')
@@ -69,22 +69,25 @@ const register = async (req, res) => {
         // console.log(err)
     }
 }
-const refreshToken = (req , res) => {
-    const username = req.body.username;
-
-    const cookies = req.cookies;
-    if (!cookies.refresh_token || !username ) return res.status(401).send('Unauthorized');
-
-    jwt.verify(cookies.refresh_token, process.env.REFRESH_TOKEN_SECRET, (err, decoded) => {
-        if (err) return res.status(403);
-        const accessToken = jwt.sign({ username }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '10m' })
-        res.json({ success: true, err: null, accessToken })
-    })
-}
 
 const logout = (req, res) => {
-    res.cookie('refresh_token', '', {maxAge: 0})
+    res.cookie('refresh_token', '', { maxAge: 0 })
     res.status(201).send('Token removed successfully.')
 }
 
-module.exports = { login, register, refreshToken, logout }
+const refreshToken = (req, res) => {
+    const cookies = req.cookies;
+
+    if (!cookies.refresh_token) return res.status(401).send('Unauthorized');
+
+    jwt.verify(cookies.refresh_token, process.env.REFRESH_TOKEN_SECRET, (err, decoded) => {
+        if (err) return res.status(403);
+        const accessToken = jwt.sign({ "username": decoded.username }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '5m' })
+        res.json({ success: true, err: null, accessToken })
+
+    })
+}
+
+
+
+module.exports = { login, register, logout, refreshToken }

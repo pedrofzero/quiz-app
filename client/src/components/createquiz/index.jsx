@@ -34,7 +34,7 @@ const CreateQuiz = () => {
   }
 
   return ( // textAlign: center?
-    <Box sx={{ margin: '0 auto', marginTop: '100px', width: '1300px', height: '800px', border: '1px red solid' }}>
+    <Box sx={{ margin: '0 auto', marginTop: '100px', width: '80%', height: '800px', border: '1px red solid' }}>
       {handlePages()}
     </Box>
   )
