@@ -30,12 +30,13 @@ const Home = () => {
         {!loading && randomQuiz &&
           <>
             <h1>Hey {user}, check out this quiz!</h1>
-            <Box sx={{ height: '400px', width: '400px', margin: '0 auto', border: '1px red solid' }}>
+            {/* 300px seems to be perfect for mobile at least on my phone. probably get a condition here for bigger on pcs. */}
+            <Box sx={{ height: '300px', width: '300px', margin: '0 auto' }}>
               <img style={{ border: '1px solid black', height: '90%', width: '90%' }} />
               <h3>{randomQuiz.name}</h3>
               <p className='secondary-text'>{randomQuiz.description}</p>
               <Button variant='contained' onClick={() => navigate(`/play/${randomQuiz._id}`)}>Play</Button>
-              <button onClick={() => test()}>Refresh Token</button>
+              {/* <button onClick={() => test()}>Refresh Token</button> */}
 
             </Box>
           </>

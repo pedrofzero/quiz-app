@@ -5,6 +5,7 @@ import { v4 as uuid } from 'uuid'
 import * as yup from 'yup';
 import { useFormik } from 'formik'
 import { useNavigate } from 'react-router-dom';
+import useWindowSize from 'hooks/useWindowSize';
 
 const validationSchema = yup.object({
   email: yup
@@ -22,6 +23,7 @@ const validationSchema = yup.object({
 
 const Register = () => {
 
+  const size = useWindowSize()
   // const [email, setEmail] = useState("");
   // const [username, setUsername] = useState("");
   // const [password, setPassword] = useState("");
@@ -44,9 +46,9 @@ const Register = () => {
   return (
     <div>
       <h1 style={{ paddingTop: '100px', textAlign: 'center' }}>Register</h1>
-      <form onClick={formik.handleSubmit} style={{ display: 'flex', flexDirection: 'column', margin: '0 auto', width: '300px', paddingBottom: '100px', paddingTop: '50px' }}>
+      <form onClick={formik.handleSubmit} style={{ display: 'flex', flexDirection: 'column', margin: '0 auto', justifyContent: 'center', alignItems: 'center', paddingBottom: '100px', paddingTop: '50px' }}>
         <TextField
-          style={{ paddingBottom: '30px' }}
+          sx={{ pb: '30px', width: `${size < 600 ? '25ch' : '50ch'}` }}
           id="email"
           name="email"
           label={"E-mail"}
@@ -57,7 +59,7 @@ const Register = () => {
           helperText={formik.touched.email && formik.errors.email}
         />
         <TextField
-          style={{ paddingBottom: '30px' }}
+          sx={{ pb: '30px', width: `${size < 600 ? '25ch' : '50ch'}` }}
           id="username"
           name="username"
           label={"Username"}
@@ -68,7 +70,7 @@ const Register = () => {
           helperText={formik.touched.username && formik.errors.username}
         />
         <TextField
-          style={{ paddingBottom: '30px' }}
+          sx={{ pb: '30px', width: `${size < 600 ? '25ch' : '50ch'}` }}
           id="password"
           name="password"
           type='password'
@@ -79,7 +81,7 @@ const Register = () => {
           error={formik.touched.password && Boolean(formik.errors.password)}
           helperText={formik.touched.password && formik.errors.password}
         />
-        <Button variant='contained'>Register</Button>
+        <Button variant='contained' sx={{ background: '#476442', width: `${size < 600 ? '25ch' : '50ch'}` }}>Register</Button>
       </form>
     </div>
   )

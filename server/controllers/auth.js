@@ -33,7 +33,7 @@ const login = async (req, res) => {
                         res.cookie('refresh_token', refreshToken, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 })
                         res.json({ success: true, username, accessToken })
                     } else {
-                        res.status(500).send('Password does not match.')
+                        res.status(401).send('Password does not match.')
                     }
                 }
                 validatePassword();

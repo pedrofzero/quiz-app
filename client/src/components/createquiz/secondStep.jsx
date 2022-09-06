@@ -16,8 +16,8 @@ const SecondStep = ({ quizData, setQuizData, nextPage, previousPage }) => {
 
     const handleSubmit = async () => {
         await setQuizData({...quizData, creator: localStorage.getItem('user')})
-        console.log(quizData)
-        createQuiz(quizData.name, quizData.description, quizData.category, quizData.questions, quizData.creator)
+        await createQuiz(quizData.name, quizData.description, quizData.category, quizData.questions, quizData.creator)
+        previousPage();
     }
 
     const deleteQuestion = async (index) => {
@@ -33,7 +33,7 @@ const SecondStep = ({ quizData, setQuizData, nextPage, previousPage }) => {
                 <p onClick={() => console.log(quizData.questions)} className='secondary-text'>Time to add some questions</p>
 
                 {/* <Container maxWidth='lg'> */}
-                <Grid container sx={{ mt: '150px', px: 4 }}>
+                <Grid className='questions-container' container sx={{ mt: '100px', px: 4, overflow: 'scroll', height: '400px', }}>
                     <h3>Questions</h3>
                     {quizData.questions &&
                         quizData.questions.map((question, index) => {

@@ -23,18 +23,21 @@ export const register = async (email, username, password) => {
     })
 }
 
-export const login = (username, password) => api.post(`auth/login`, {
-  username: username,
-  password: password
-})
-  .then(async (response) => {
-    console.log(response.data)
-    localStorage.setItem("user", response.data.username)
-    localStorage.setItem("access_token", response.data.accessToken)
+export const login = (username, password) =>
+  api.post(`auth/login`, {
+    username: username,
+    password: password
   })
+    .then((response) => {
+      console.log(response.status)
+
+      localStorage.setItem("user", response.data.username)
+      localStorage.setItem("access_token", response.data.accessToken)
+    })
 
 export const logout = () => {
   localStorage.removeItem('user')
+  localStorage.removeItem('access_token')
   api.post(`auth/logout`)
 }
 
@@ -62,16 +65,16 @@ export const getQuizes = (username) => {
   api.post(`quiz/getQuizes`, {
     username: username
   })
-  .then(response => {
-    console.log(response)
-  })
+    .then(response => {
+      console.log(response)
+    })
 }
 
 export const getQuizById = (id) => {
   api.post(`quiz/getQuizById`, {
     id: id
   })
-  .then(response => {
-    console.log(response)
-  })
+    .then(response => {
+      console.log(response)
+    })
 } 

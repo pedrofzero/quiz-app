@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import { Box, Grid, Container, TextField, InputLabel, Button, Select, MenuItem, Stack } from '@mui/material'
 import { api } from 'helpers/api'
+import useWindowSize from 'hooks/useWindowSize'
 
 const FirstStep = ({ quizData, setQuizData, nextPage }) => {
 
+    const size = useWindowSize();
     const [file, setFile] = useState();
 
     const showImage = (e) => {
@@ -13,14 +15,14 @@ const FirstStep = ({ quizData, setQuizData, nextPage }) => {
     }
 
     return (
-        <Box sx={{ margin: '0 auto', backgroundColor: '#D9D9D9', borderRadius: '5px', width: '100%', height: '100%' }}>
-            <Box sx={{ position: 'relative', top: '2.5%', margin: '0 auto', backgroundColor: '#fff', borderRadius: '5px', width: '95%', height: '95%', textAlign: 'center' }}>
+        <Box sx={{ margin: '0 auto', borderRadius: '5px', width: '100%', height: '100%' }}>
+            <Box sx={{ position: 'relative', top: '2.5%', margin: '0 auto',borderRadius: '5px', width: '95%', height: '95%', textAlign: 'center' }}>
                 <h1 style={{ paddingTop: '20px' }}>Let's create your quiz!</h1>
                 <p className='secondary-text'>It's very simple, just follow along the instructions</p>
 
                 {/* <Container maxWidth='lg'> */}
-                <Grid container sx={{ mt: '40px', p: '2em' }}>
-                    <Grid item xs={12} lg={8} sx={{}}>
+                <Grid container sx={{ m: 0, p: 0 }}>
+                    <Grid item xs={12} lg={7} xl={8} sx={{}}>
                         <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                             <div>
                                 <InputLabel htmlFor="standard-adornment-amount">What is the name of your quiz?</InputLabel>
@@ -30,7 +32,7 @@ const FirstStep = ({ quizData, setQuizData, nextPage }) => {
                                     id="input-with-icon-textfield"
                                     label="Quiz"
                                     variant="outlined"
-                                    sx={{ m: 1, width: '45%' }}
+                                    sx={{ width: `${size < 900 ? '80%' : '50%'}` }}
                                 />
                             </div>
                             <div>
@@ -41,7 +43,7 @@ const FirstStep = ({ quizData, setQuizData, nextPage }) => {
                                     value={quizData.category}
                                     label="Time"
                                     onChange={(e) => setQuizData({ ...quizData, category: e.target.value })}
-                                    sx={{ m: 1, width: '45%' }}
+                                    sx={{ width: `${size < 900 ? '80%' : '50%'}` }}
                                 >
                                     <MenuItem value={'Math'}>Math</MenuItem>
                                     <MenuItem value={'Music'}>Music</MenuItem>
@@ -59,21 +61,22 @@ const FirstStep = ({ quizData, setQuizData, nextPage }) => {
                                     id="input-with-icon-textfield"
                                     label="Quiz"
                                     variant="outlined"
-                                    sx={{ m: 1, width: '45%' }}
+                                    sx={{ width: `${size < 900 ? '80%' : '50%'}` }}
                                 />
                             </div>
                         </Box>
                     </Grid>
-                    <Grid item xs={12} lg={4} sx={{}}>
-                        <Box sx={{ height: '100%', border: '1px black solid' }}>
-                            <img style={{ height: '100%', width: 'auto' }} src={file} />
+                    {/* {size < 1200 && <Box></Box>} */}
+                    <Grid item xs={12} lg={5} xl={4} sx={{ pt: `${size < 1200 ? '50px' : '0px'}` }}>
+                        <Box sx={{ height: '100%', width: '100%', border: '1px black solid', pr: '1em', pl: '1em'}}>
+                            <img style={{ height: `${size < 1200 ? '200px' : '100%'}`, width: 'auto', }} src={file} />
                         </Box>
                         <input type='file' onChange={showImage} />
                     </Grid>
                 </Grid>
                 <Box sx={{ position: 'absolute', mb: '50px', bottom: 0, left: '50%', transform: 'translateX(-50%)' }}>
                     <Stack direction='row' spacing={3}>
-                        <Button onClick={() => { console.log(quizData); nextPage(); }} variant='contained' sx={{ width: '150px' }}>
+                        <Button onClick={() => { console.log(quizData); nextPage(); }} variant='contained' sx={{ width: '150px', background: '#476442', }}>
                             Next
                         </Button>
                     </Stack>

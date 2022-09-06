@@ -14,14 +14,19 @@ const PlayQuiz = () => {
 
   // temporary, supposed to use helpers api file later.
   useEffect(() => {
-    api.post(`quiz/getQuizById`, {
-      id: quizId
-    })
-      .then(response => {
-        setData(response.data)
-        setLoading(false)
-        console.log(data)
+    const getQuiz = async () => {
+      await api.post(`quiz/getQuizById`, {
+        id: quizId
       })
+        .then(response => {
+          setData(response.data)
+          setLoading(false)
+          console.log(data)
+        })
+    }
+
+    getQuiz()
+    console.log(quizId)
   }, [])
 
   return (
@@ -31,7 +36,7 @@ const PlayQuiz = () => {
           <div style={{ textAlign: 'center' }}>
             <h1>{data.name}</h1>
             <h4 className='secondary-text'>{data.questions.length} questions</h4>
-            <Box sx={{ height: '400px', width: '400px', border: '1px solid black', margin: '0 auto' }}>
+            <Box sx={{ height: '300px', width: '300px', border: '1px solid black', margin: '0 auto' }}>
               <img src={data.image} />
             </Box>
             <Button onClick={() => setStartQuiz(true)} variant='contained' sx={{ mt: '10px', px: '100px' }}>Play</Button>
@@ -39,8 +44,7 @@ const PlayQuiz = () => {
         </>
       }
       {startQuiz &&
-      <Play quiz={data}/>
-      
+        <Play quiz={data} />
       }
     </Box>
   )
