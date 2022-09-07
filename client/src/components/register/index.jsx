@@ -45,7 +45,7 @@ const Register = () => {
 
   return (
     <div>
-      <h1 style={{ paddingTop: '100px', textAlign: 'center' }}>Register</h1>
+      <h1 style={{ paddingTop: '25vh', textAlign: 'center' }}>Register</h1>
       <form onClick={formik.handleSubmit} style={{ display: 'flex', flexDirection: 'column', margin: '0 auto', justifyContent: 'center', alignItems: 'center', paddingBottom: '100px', paddingTop: '50px' }}>
         <TextField
           sx={{ pb: '30px', width: `${size < 600 ? '25ch' : '50ch'}` }}
@@ -81,7 +81,7 @@ const Register = () => {
           error={formik.touched.password && Boolean(formik.errors.password)}
           helperText={formik.touched.password && formik.errors.password}
         />
-        <Button variant='contained' sx={{ background: '#476442', width: `${size < 600 ? '25ch' : '50ch'}` }}>Register</Button>
+        <Button variant='contained' sx={{ background: '#76d07b', width: `${size < 600 ? '25ch' : '50ch'}` }}>Register</Button>
       </form>
     </div>
   )

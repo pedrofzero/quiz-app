@@ -36,9 +36,10 @@ export const login = (username, password) =>
     })
 
 export const logout = () => {
+  api.post(`auth/logout`)
   localStorage.removeItem('user')
   localStorage.removeItem('access_token')
-  api.post(`auth/logout`)
+  
 }
 
 
@@ -61,7 +62,7 @@ export const createQuiz = (name, description, category, questions, creator, imag
   })
 }
 
-export const getQuizes = (username) => {
+export const getQuizesByUser = (username) => {
   api.post(`quiz/getQuizes`, {
     username: username
   })

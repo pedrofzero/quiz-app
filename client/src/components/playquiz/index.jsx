@@ -7,45 +7,49 @@ import Play from './Play';
 
 const PlayQuiz = () => {
 
-  const { quizId } = useParams();
+  // const { quizId } = useParams();
   const [loading, setLoading] = useState(true)
-  const [data, setData] = useState([])
+  const [quizData, setQuizData] = useState([])
   const [startQuiz, setStartQuiz] = useState(false)
 
   // temporary, supposed to use helpers api file later.
   useEffect(() => {
+
+    const quizId = window.location.pathname.split("/").pop()
+
     const getQuiz = async () => {
       await api.post(`quiz/getQuizById`, {
         id: quizId
       })
         .then(response => {
-          setData(response.data)
+          setQuizData(response.data)
           setLoading(false)
-          console.log(data)
+          console.log(quizData);
+
         })
     }
-
     getQuiz()
-    console.log(quizId)
   }, [])
 
   return (
-    <Box sx={{ mt: '100px', border: '1px red solid' }}>
+    <Box sx={{ mt: '100px' }}>
       {!loading && startQuiz === false &&
         <>
           <div style={{ textAlign: 'center' }}>
-            <h1>{data.name}</h1>
-            <h4 className='secondary-text'>{data.questions.length} questions</h4>
+            <h1>{quizData.name}</h1>
+            <h4 className='secondary-text'>{quizData.questions.length} questions</h4>
             <Box sx={{ height: '300px', width: '300px', border: '1px solid black', margin: '0 auto' }}>
-              <img src={data.image} />
+              <img src={quizData.image} />
             </Box>
             <Button onClick={() => setStartQuiz(true)} variant='contained' sx={{ mt: '10px', px: '100px' }}>Play</Button>
           </div>
         </>
       }
+
       {startQuiz &&
-        <Play quiz={data} />
+        <Play quiz={quizData} />
       }
+
     </Box>
   )
 }

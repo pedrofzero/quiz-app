@@ -12,7 +12,9 @@ const Home = () => {
   const [randomQuiz, setRandomQuiz] = useState([]);
 
   useEffect(() => {
-    api.get(`quiz/getRandomQuiz`)
+    api.post(`quiz/getQuizByNum`, {
+      amount: 1
+    })
       .then((response => {
         console.log(response)
         setRandomQuiz(response.data[0])

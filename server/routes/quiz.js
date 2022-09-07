@@ -1,10 +1,10 @@
-const { createQuiz, getQuizes, getQuizById, getRandomQuiz } = require('../controllers/quiz')
+const { createQuiz, getQuizesByUser, getQuizById, getQuizByNum, upload } = require('../controllers/quiz')
 const verifyJWT = require('../middleware/verifyJWT')
 const router = require('express').Router()
 
-router.post('/createQuiz', verifyJWT, createQuiz)
-router.post('/getQuizes', verifyJWT, getQuizes)
+router.post('/createQuiz', upload, verifyJWT, createQuiz)
+router.post('/getQuizesByUser', verifyJWT, getQuizesByUser)
 router.post('/getQuizById', verifyJWT, getQuizById)
-router.get('/getRandomQuiz', verifyJWT, getRandomQuiz)
+router.post('/getQuizByNum', verifyJWT, getQuizByNum)
 
 module.exports = router

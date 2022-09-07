@@ -6,15 +6,31 @@ import './index.css'
 
 const Menu = ({ menuOpen, setMenuOpen }) => {
 
+    const user = localStorage.getItem('user')
     const navigate = useNavigate();
 
-    const goToHome = async () => {
-        await navigate('/')
+    const goToHome =  () => {
+        navigate('/')
         setMenuOpen(false)
     }
 
-    const goToCreateQuiz = async () => {
-        await navigate('/createquiz');
+    const goToLogin = () => {
+        navigate('/login')
+        setMenuOpen(false)
+    }
+
+    const goToMyQuizes = async () => {
+        await navigate(`/quizes/${user}`)
+        setMenuOpen(false)
+    }
+
+    const goToRegister = () => {
+        navigate('/register')
+        setMenuOpen(false)
+    }
+
+    const goToCreateQuiz = () => {
+        navigate('/createquiz');
         setMenuOpen(false)
     }
 
@@ -29,11 +45,22 @@ const Menu = ({ menuOpen, setMenuOpen }) => {
             <nav>
                 <ul>
                     <li onClick={() => goToHome()}>Home</li>
+                    {!user ? 
+                    <>
                     <li>Browse</li>
-                    <li onClick={() => goToCreateQuiz()}>Create a quiz</li>
-                    <li>My quizes</li>
+                    <li onClick={() => goToLogin()}>Login</li>
+                    <li onClick={() => goToRegister()}>Register</li>
+                    </>
+                    :
+                    <>
+                    <li>Browse</li>
+                    <li onClick={() => goToMyQuizes()}>My quizes</li>
                     <li>Settings</li>
                     <li onClick={() => handleLogout()}>Logout</li>
+                    </>    
+                    
+                }
+                    
                 </ul>
             </nav>
         </Box>

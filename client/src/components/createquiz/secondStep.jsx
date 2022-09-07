@@ -16,7 +16,7 @@ const SecondStep = ({ quizData, setQuizData, nextPage, previousPage }) => {
 
     const handleSubmit = async () => {
         await setQuizData({...quizData, creator: localStorage.getItem('user')})
-        await createQuiz(quizData.name, quizData.description, quizData.category, quizData.questions, quizData.creator)
+        await createQuiz(quizData.name, quizData.description, quizData.category, quizData.questions, quizData.creator, quizData.image)
         previousPage();
     }
 

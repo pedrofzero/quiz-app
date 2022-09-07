@@ -1,9 +1,36 @@
 const QuizModel = require('../models/quiz')
 const UserModel = require('../models/users')
+const multer = require('multer')
+const path = require('path')
+
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'images')
+    },
+    filename: (req, file, cb) => {
+        Date.now() + path.extname(file.originalname)
+    }
+})
+
+const upload = multer({
+    storage: storage,
+    limits: { fileSize: '5000000'},
+    fileFilter: (req, file, cb) => {
+        const fileTypes = /jpeg|jpg|png|gif/
+        const mimeType = fileTypes.test(file.mimetype)
+        const extName = fileTypes.test(path.extname(file.originalname))
+
+        if (mimeType && extName) {
+            return cb(null, true)
+        }
+        cb('Give proper file.')
+    }
+}).single('image')
+
 
 const createQuiz = async (req, res) => {
 
-    const { name, description, category, questions, creator, image } = req.body
+    const { file, name, description, category, questions, creator, image } = req.body
 
     try {
         UserModel.findOne({ username: creator }, (err, user) => {
@@ -11,8 +38,9 @@ const createQuiz = async (req, res) => {
             if (!user) res.status(401).send('Unauthorized. User does not exist.')
 
             if (user) {
+                
                 const createQuiz = async () => {
-                    const newQuiz = await QuizModel.create({ name: name, description: description, category: category, creator: user._id, questions: questions }, (err, quiz) => {
+                    const newQuiz = await QuizModel.create({ image: file, name: name, description: description, category: category, creator: user._id, questions: questions }, (err, quiz) => {
                         if (err) { console.log(err); res.status(401).send(err); }
                         if (quiz) {
                             res.status(201).send('Quiz created successfully.')
@@ -32,7 +60,7 @@ const createQuiz = async (req, res) => {
     }
 }
 
-const getQuizes = async (req, res) => {
+const getQuizesByUser = async (req, res) => {
     const username = req.body.username;
     let userID;
     try {
@@ -55,9 +83,10 @@ const getQuizes = async (req, res) => {
 const getQuizById = async (req, res) => {
     const id = req.body.id;
     try {
-        QuizModel.findOne({ id: id }, (err, quiz) => {
+        QuizModel.findById(id, (err, quiz) => {
             if (err) res.status(401);
             if (quiz) {
+                console.log(quiz)
                 res.status(201).send(quiz)
             }
         })
@@ -66,8 +95,10 @@ const getQuizById = async (req, res) => {
     }
 }
 
-const getRandomQuiz = async (req, res) => {
-    await QuizModel.aggregate([{ $sample: { size: 1 } }], (err, result) => {
+const getQuizByNum = async (req, res) => {
+    const amount = req.body.amount;
+
+    await QuizModel.aggregate([{ $sample: { size: amount } }], (err, result) => {
         res.send(result)
     })
         // let random = Math.floor(Math.random * count)
@@ -78,4 +109,4 @@ const getRandomQuiz = async (req, res) => {
     }
 
 
-module.exports = { createQuiz, getQuizes, getQuizById, getRandomQuiz }
+module.exports = { createQuiz, getQuizesByUser, getQuizById, getQuizByNum, upload }

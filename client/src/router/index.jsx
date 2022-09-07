@@ -16,16 +16,16 @@ const Router = () => {
             <BrowserRouter>
                 <AppLayout>
                     <Routes>
-                    <Route exact path="/" element={
-                            <ProtectedRoute>
-                                <Home />
-                            </ProtectedRoute>
+                        <Route exact path="/login" element={<Login />} />
+                        
+                        <Route exact path="/register" element={<Register />} />
+                        
+                        <Route exact path="/" element={
+                            <Home />
                         }
                         />
                         <Route exact path="/home" element={
-                            <ProtectedRoute>
-                                <Home />
-                            </ProtectedRoute>
+                            <Home />
                         }
                         />
                         <Route exact path="/createquiz" element={
@@ -36,19 +36,17 @@ const Router = () => {
                         />
                         <Route exact path="/quizes/:username" element={
                             <ProtectedRoute>
-                                <Quizes /> 
+                                <Quizes />
                             </ProtectedRoute>
                         }
                         />
                         <Route exact path="/play/:id" element={
                             <ProtectedRoute>
-                                <PlayQuiz /> 
+                                <PlayQuiz />
                             </ProtectedRoute>
-                        } 
+                        }
                         />
 
-                        <Route exact path="/login" element={<Login />} />
-                        <Route exact path="/register" element={<Register />} />
                     </Routes>
                 </AppLayout>
             </BrowserRouter>

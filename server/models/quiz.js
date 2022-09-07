@@ -90,42 +90,7 @@ const quizSchema = mongoose.Schema({
                     }
                 },
 
-                // answers: [
-                //     {
-                //         answer: {
-                //             type: String,
-                //             required: true,
-                //         },
-                //         isCorrect: {
-                //             type: String,
-                //             required: true,
-                //         }
-                //     }
-                // ],
-                // answer: {
-                //     type: String,
-                //     required: true,
-                //     maxLength: 50
-                // },
-                // wrongAnswer1: {
-                //     type: String,
-                //     required: true,
-                //     maxLength: 50
-                // },
-                // wrongAnswer2: {
-                //     type: String,
-                //     required: true,
-                //     maxLength: 50
-                // },
-                // wrongAnswer3: {
-                //     type: String,
-                //     required: true,
-                //     maxLength: 50
-                // },
             }
-
-
-
         ]
 })
 

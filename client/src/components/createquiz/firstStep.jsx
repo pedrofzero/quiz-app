@@ -16,14 +16,14 @@ const FirstStep = ({ quizData, setQuizData, nextPage }) => {
 
     return (
         <Box sx={{ margin: '0 auto', borderRadius: '5px', width: '100%', height: '100%' }}>
-            <Box sx={{ position: 'relative', top: '2.5%', margin: '0 auto',borderRadius: '5px', width: '95%', height: '95%', textAlign: 'center' }}>
+            <Box sx={{ position: 'relative', top: '2.5%', margin: '0 auto', borderRadius: '5px', width: '95%', height: '95%', textAlign: 'center' }}>
                 <h1 style={{ paddingTop: '20px' }}>Let's create your quiz!</h1>
                 <p className='secondary-text'>It's very simple, just follow along the instructions</p>
 
                 {/* <Container maxWidth='lg'> */}
-                <Grid container sx={{ m: 0, p: 0 }}>
+                <Grid container sx={{ m: 0, p: 0, paddingTop: '10vh' }}>
                     <Grid item xs={12} lg={7} xl={8} sx={{}}>
-                        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                        <Stack direction='column' spacing={2}>
                             <div>
                                 <InputLabel htmlFor="standard-adornment-amount">What is the name of your quiz?</InputLabel>
                                 <TextField
@@ -64,11 +64,11 @@ const FirstStep = ({ quizData, setQuizData, nextPage }) => {
                                     sx={{ width: `${size < 900 ? '80%' : '50%'}` }}
                                 />
                             </div>
-                        </Box>
+                        </Stack>
                     </Grid>
                     {/* {size < 1200 && <Box></Box>} */}
                     <Grid item xs={12} lg={5} xl={4} sx={{ pt: `${size < 1200 ? '50px' : '0px'}` }}>
-                        <Box sx={{ height: '100%', width: '100%', border: '1px black solid', pr: '1em', pl: '1em'}}>
+                        <Box sx={{ height: '100%', width: '100%', border: '1px black solid', pr: '1em', pl: '1em' }}>
                             <img style={{ height: `${size < 1200 ? '200px' : '100%'}`, width: 'auto', }} src={file} />
                         </Box>
                         <input type='file' onChange={showImage} />

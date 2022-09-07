@@ -10,6 +10,7 @@ const AddQuestion = ({ quizData, setQuizData, previousPage }) => {
     {
       timeLimit: 20,
       question: '',
+      creator: '',
       answer1:
       {
         answer: '',
@@ -33,10 +34,6 @@ const AddQuestion = ({ quizData, setQuizData, previousPage }) => {
     }
   )
 
-  useEffect(() => {
-    console.log(question)
-  }, [question])
-
   const saveQuestion = () => {
     setQuizData({ ...quizData, questions: [...quizData.questions, question] })
     console.log(quizData)
@@ -50,13 +47,13 @@ const AddQuestion = ({ quizData, setQuizData, previousPage }) => {
         <p className='secondary-text'>Add up to 4 answers and tick the correct one.</p>
 
         {/* <Container maxWidth='lg'> */}
-        <Box sx={{ mt: '50px', px: 4 }}>
+        <Box sx={{ mt: '50px', px: 2,  overflow: 'scroll'}}>
           <h3>Question</h3>
 
-          <Grid container sx={{ pt: 4 }}>
+          <Grid container sx={{ pt: 4, margin: 'auto', textAlign: 'center' }}>
 
             {/* Question */}
-            <Grid item sm={12}>
+            <Grid item xs={12} sx={{width: '100%'}}>
               <InputLabel htmlFor="standard-adornment-amount">What is the name of your question?</InputLabel>
               <TextField
                 value={question.question}
@@ -64,12 +61,12 @@ const AddQuestion = ({ quizData, setQuizData, previousPage }) => {
                 id="input-with-icon-textfield"
                 label="Quiz"
                 variant="outlined"
-                sx={{ m: 'auto', width: `${size < 600 ? '100%' : '50ch'}` }}
+                sx={{ width: `${size < 600 ? '100%' : '50ch'}` }}
               />
             </Grid>
 
             {/* Time limit */}
-            <Grid item sm={12}>
+            <Grid item xs={12} sx={{width: '100%'}}>
               <InputLabel htmlFor="standard-adornment-amount">What is the the question's time limit?</InputLabel>
               <Select
                 labelId="demo-simple-select-label"
@@ -77,7 +74,7 @@ const AddQuestion = ({ quizData, setQuizData, previousPage }) => {
                 value={quizData.timeLimit}
                 label="Time"
                 onChange={(e) => setQuestion({ ...question, timeLimit: e.target.value })}
-                sx={{ m: 1, width: `${size < 600 ? '100%' : '50ch'}` }}
+                sx={{ width: `${size < 600 ? '100%' : '50ch'}` }}
               >
                 <MenuItem value={20}>20 sec</MenuItem>
                 <MenuItem value={30}>30 sec</MenuItem>
@@ -86,75 +83,74 @@ const AddQuestion = ({ quizData, setQuizData, previousPage }) => {
             </Grid>
 
             {/* Answer 1 */}
-            <Grid item md={12} lg={6} xl={6} sx={{ m: 0, pt: 2 }}>
+            <Grid item sm={12} sx={{width: '100%'}}>
               <InputLabel htmlFor="standard-adornment-amount" >Answer 1</InputLabel>
               <TextField
                 value={question.answer1.answer}
-                onChange={(e) => setQuestion({ ...question, answer1: { answer: e.target.value, isCorrect:false } })}
+                onChange={(e) => setQuestion({ ...question, answer1: { answer: e.target.value, isCorrect: false } })}
                 id="input-with-icon-textfield"
                 label=" "
                 variant="outlined"
                 sx={{ m: 1, width: '25ch' }}
               />
-              <Checkbox color="success" />
+              <Checkbox color="success" sx={{ pt: '25px' }} />
+
             </Grid>
 
             {/* Answer 2 */}
-            <Grid item md={12} lg={6} xl={6} >
+            <Grid item sm={12} sx={{width: '100%'}}>
               <InputLabel htmlFor="standard-adornment-amount">Answer 2</InputLabel>
               <TextField
                 value={question.answer2.answer}
-                onChange={(e) => setQuestion({ ...question, answer2: { answer: e.target.value, isCorrect:false } })}
+                onChange={(e) => setQuestion({ ...question, answer2: { answer: e.target.value, isCorrect: false } })}
                 id="input-with-icon-textfield"
                 label=" "
                 variant="outlined"
                 sx={{ m: 1, width: '25ch' }}
               />
-              <Checkbox color="success" />
+              <Checkbox color="success" sx={{ pt: '25px' }} />
             </Grid>
 
-            {/* Answer 4 */}
-            <Grid item md={12} lg={6} xl={6}>
+            {/* Answer 3 */}
+            <Grid item sm={12} sx={{width: '100%'}}>
               <InputLabel htmlFor="standard-adornment-amount">Answer 3</InputLabel>
               <TextField
                 value={question.answer3.answer}
-                onChange={(e) => setQuestion({ ...question, answer3: { answer: e.target.value, isCorrect:false } })}
+                onChange={(e) => setQuestion({ ...question, answer3: { answer: e.target.value, isCorrect: false } })}
                 id="input-with-icon-textfield"
                 label="Quiz"
                 variant="outlined"
                 sx={{ m: 1, width: '25ch' }}
               />
-              <Checkbox color="success" />
+              <Checkbox color="success" sx={{ pt: '25px' }} />
             </Grid>
 
             {/* Answer 4 */}
-            <Grid item md={12} lg={6} xl={6} >
+            <Grid item sm={12} sx={{width: '100%'}}>
               <InputLabel htmlFor="standard-adornment-amount">Answer 4</InputLabel>
               <TextField
                 value={question.answer4.answer}
-                onChange={(e) => setQuestion({ ...question, answer4: { answer: e.target.value, isCorrect:false } })}
+                onChange={(e) => setQuestion({ ...question, answer4: { answer: e.target.value, isCorrect: false } })}
                 id="input-with-icon-textfield"
                 label="Quiz"
                 variant="outlined"
                 sx={{ m: 1, width: '25ch' }}
               />
-              <Checkbox color="success" />
+              <Checkbox color="success" sx={{ pt: '25px' }} />
             </Grid>
 
           </Grid>
         </Box>
 
-        <Box sx={{ position: 'absolute', mb: '50px', bottom: 0, left: '50%', transform: 'translateX(-50%)' }}>
-          <Stack direction='row' spacing={3}>
-            <Button onClick={() => previousPage()} variant='contained' sx={{ width: '150px' }}>
-              Go back
-            </Button>
+        <Stack sx={{ pt: '2em' }} direction={`${size < 400 ? 'column' : 'row'}`} justifyContent='center' alignItems='center' spacing={3}>
+          <Button onClick={() => previousPage()} variant='contained' sx={{ width: '150px' }}>
+            Go back
+          </Button>
 
-            <Button onClick={() => saveQuestion()} variant='contained' sx={{ width: '150px' }}>
-              Next
-            </Button>
-          </Stack>
-        </Box>
+          <Button onClick={() => saveQuestion()} variant='contained' sx={{ width: '150px' }}>
+            Next
+          </Button>
+        </Stack>
         {/* </Container> */}
       </Box>
     </Box>
