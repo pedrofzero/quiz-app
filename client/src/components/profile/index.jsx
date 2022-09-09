@@ -6,9 +6,9 @@ import PlayCircleFilledWhiteIcon from '@mui/icons-material/PlayCircleFilledWhite
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-const Quizes = () => {
+const Profile = () => {
 
-    const { username } = useParams();
+    const username = localStorage.getItem('user');
     const navigate = useNavigate();
 
     const [loading, setLoading] = useState(true)
@@ -26,12 +26,17 @@ const Quizes = () => {
             })
     }, [])
 
-    return (
+    const handleDeleteQuiz = () => {
+        deleteQuiz(localStorage.getItem('user'), )
+    }
 
+    return (
+        
         <Box sx={{ mt: '100px' }}>
             {!loading &&
                 <>
-                    <h1 style={{ textAlign: 'center' }}>Quizes made by {username}</h1>
+                    <h1 style={{ textAlign: 'center' }}>Hey there, {username}!</h1>
+                    <h6 style={{ textAlign: 'center' }}>Here are some of your quizzes</h6>
                     <Grid container sx={{ mt: '50px' }}>
                         {data && data.map((quiz, index) => {
                             return (
@@ -43,7 +48,11 @@ const Quizes = () => {
                                                     <Stack direction='row' spacing={3}>
                                                         <h5>{quiz.name}</h5>
                                                     </Stack>
-                                                    <PlayCircleFilledWhiteIcon onClick={() => navigate(`/play/${quiz._id}`)} />
+                                                    <Stack direction='row'>
+                                                        <PlayCircleFilledWhiteIcon onClick={() => navigate(`/play/${quiz._id}`)} />
+                                                        <EditIcon />
+                                                        <DeleteIcon onClick={() => deleteQuiz(localStorage.getItem('user'), quiz._id)} />
+                                                    </Stack>
                                                 </Stack>
                                             </Box>
                                         </Box>
@@ -58,4 +67,4 @@ const Quizes = () => {
     )
 }
 
-export default Quizes
+export default Profile

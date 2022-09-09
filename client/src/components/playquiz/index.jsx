@@ -9,7 +9,7 @@ const PlayQuiz = () => {
 
   // const { quizId } = useParams();
   const [loading, setLoading] = useState(true)
-  const [quizData, setQuizData] = useState([])
+  const [quiz, setQuiz] = useState([])
   const [startQuiz, setStartQuiz] = useState(false)
 
   // temporary, supposed to use helpers api file later.
@@ -22,9 +22,8 @@ const PlayQuiz = () => {
         id: quizId
       })
         .then(response => {
-          setQuizData(response.data)
+          setQuiz(response.data)
           setLoading(false)
-          console.log(quizData);
 
         })
     }
@@ -36,10 +35,10 @@ const PlayQuiz = () => {
       {!loading && startQuiz === false &&
         <>
           <div style={{ textAlign: 'center' }}>
-            <h1>{quizData.name}</h1>
-            <h4 className='secondary-text'>{quizData.questions.length} questions</h4>
+            <h1>{quiz.name}</h1>
+            <h4 className='secondary-text'>{quiz.questions.length} questions</h4>
             <Box sx={{ height: '300px', width: '300px', border: '1px solid black', margin: '0 auto' }}>
-              <img src={quizData.image} />
+              <img src={`http://45.136.70.211:8000/images/${quiz.image}`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             </Box>
             <Button onClick={() => setStartQuiz(true)} variant='contained' sx={{ mt: '10px', px: '100px' }}>Play</Button>
           </div>
@@ -47,7 +46,7 @@ const PlayQuiz = () => {
       }
 
       {startQuiz &&
-        <Play quiz={quizData} />
+        <Play quiz={quiz} />
       }
 
     </Box>

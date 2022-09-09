@@ -8,10 +8,24 @@ const FirstStep = ({ quizData, setQuizData, nextPage }) => {
     const size = useWindowSize();
     const [file, setFile] = useState();
 
-    const showImage = (e) => {
-        console.log(e.target.files);
+    const setImage = (e) => {
+        const image = e.target.files[0]
+        // upload it
+        api.post('/uploadimage', {
+            image: image
+        }, {
+            headers: { 'content-type': 'multipart/form-data' }
+        })
+            .then(response => {
+                const newImageName = response.data
+                // add uploaded image to the quiz form
+                setQuizData({ ...quizData, image: newImageName })
+            })
+
+        // preview it on the img tag
         setFile(URL.createObjectURL(e.target.files[0]))
-        setQuizData({ ...quizData, image: e.target.files[0] })
+
+
     }
 
     return (
@@ -45,6 +59,7 @@ const FirstStep = ({ quizData, setQuizData, nextPage }) => {
                                     onChange={(e) => setQuizData({ ...quizData, category: e.target.value })}
                                     sx={{ width: `${size < 900 ? '80%' : '50%'}` }}
                                 >
+                                    <MenuItem value={'Games'}>Games</MenuItem>
                                     <MenuItem value={'Math'}>Math</MenuItem>
                                     <MenuItem value={'Music'}>Music</MenuItem>
                                     <MenuItem value={'History'}>History</MenuItem>
@@ -71,7 +86,10 @@ const FirstStep = ({ quizData, setQuizData, nextPage }) => {
                         <Box sx={{ height: '100%', width: '100%', border: '1px black solid', pr: '1em', pl: '1em' }}>
                             <img style={{ height: `${size < 1200 ? '200px' : '100%'}`, width: 'auto', }} src={file} />
                         </Box>
-                        <input type='file' onChange={showImage} />
+
+                        {/* image */}
+                        <input type='file' onChange={setImage} />
+
                     </Grid>
                 </Grid>
                 <Box sx={{ position: 'absolute', mb: '50px', bottom: 0, left: '50%', transform: 'translateX(-50%)' }}>

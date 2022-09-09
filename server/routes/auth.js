@@ -3,7 +3,7 @@ const router = require('express').Router()
 
 router.post('/login', login)
 router.post('/register', register)
-router.post('/refreshToken', refreshToken)
+router.get('/refreshToken', refreshToken)
 router.get('/logout', logout)
 
 module.exports = router

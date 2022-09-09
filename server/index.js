@@ -7,7 +7,8 @@ const mongoose = require('mongoose')
 const cookieparser = require('cookie-parser')
 const multer = require('multer')
 const verifyJWT = require('./middleware/verifyJWT.js');
-
+const path = require('path')
+const uuid4 = require("uuid").v4
 
 // cors
 app.use(cors({ credentials: true, origin: 'http://45.136.70.211:3000' }))
@@ -19,8 +20,27 @@ app.use(express.json())
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieparser())
 
-// routes
 app.use('/auth', require('./routes/auth.js'))
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'images/')
+  },
+  filename: (req, file, cb) => {
+    // cb(null, file.fieldname + '-' + Date.now())
+    cb(null, uuid4().replace(/-/g, "") + path.extname(file.originalname))
+  },
+})
+
+const upload = multer({ storage: storage })
+
+app.post('/uploadimage', upload.single('image'), function (req, res) {
+  res.send(req.file.filename);
+})
+
+app.use('/images', express.static('images'))
+
+// routes
 
 app.use(verifyJWT)
 app.use('/quiz/', require('./routes/quiz.js'))
@@ -28,22 +48,9 @@ app.use('/users', require('./routes/users.js'))
 
 
 // serve images
-app.use(express.static('images'))
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'images/')
-  },
-  filename: (req, file, cb) => {
-    cb(null, file.originalname)
-  },
-})
 
-const upload = multer({ storage: storage })
 
-app.post('/image', upload.single('file'), function (req, res) {
-  res.json({})
-})
 
 // Connect to MongoDB
 const main = async () => {

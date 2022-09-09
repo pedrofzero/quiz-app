@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import useWindowSize from 'hooks/useWindowSize';
 import { useNavigate } from 'react-router-dom';
 import { Box, Stack, Button } from '@mui/material'
-import { logout } from 'helpers/api';
+import { api, logout } from 'helpers/api';
 import MenuIcon from '@mui/icons-material/Menu';
 
 const Header = ({ menuOpen, setMenuOpen }) => {
@@ -15,11 +15,7 @@ const Header = ({ menuOpen, setMenuOpen }) => {
     await logout();
     navigate('/login')
   }
-
-  useEffect(() => {
-    console.log(size)
-  }, [size])
-
+  
   return (
     <>
 

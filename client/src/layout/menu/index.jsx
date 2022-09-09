@@ -20,7 +20,7 @@ const Menu = ({ menuOpen, setMenuOpen }) => {
     }
 
     const goToMyQuizes = async () => {
-        await navigate(`/quizes/${user}`)
+        await navigate(`/profile`)
         setMenuOpen(false)
     }
 

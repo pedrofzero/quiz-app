@@ -1,13 +1,14 @@
 import React, { useState } from 'react'
 import AppLayout from 'layout/appLayout'
+import { ProtectedRoute } from './ProtectedRoute'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Home from '../components/home'
 import Login from '../components/login'
 import Register from '../components/register'
 import CreateQuiz from 'components/createquiz'
 import Quizes from 'components/quizes'
-import { ProtectedRoute } from './ProtectedRoute'
 import PlayQuiz from 'components/playquiz'
+import Profile from 'components/profile'
 
 const Router = () => {
 
@@ -17,29 +18,39 @@ const Router = () => {
                 <AppLayout>
                     <Routes>
                         <Route exact path="/login" element={<Login />} />
-                        
                         <Route exact path="/register" element={<Register />} />
                         
                         <Route exact path="/" element={
                             <Home />
                         }
                         />
+
                         <Route exact path="/home" element={
                             <Home />
                         }
                         />
+
+                        <Route exact path="/profile" element={
+                            <ProtectedRoute>
+                                <Profile />
+                            </ProtectedRoute>
+                        }
+                        />
+
                         <Route exact path="/createquiz" element={
                             <ProtectedRoute>
                                 <CreateQuiz />
                             </ProtectedRoute>
                         }
                         />
+
                         <Route exact path="/quizes/:username" element={
                             <ProtectedRoute>
                                 <Quizes />
                             </ProtectedRoute>
                         }
                         />
+                        
                         <Route exact path="/play/:id" element={
                             <ProtectedRoute>
                                 <PlayQuiz />

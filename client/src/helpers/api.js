@@ -6,10 +6,22 @@ export const api = axios.create({
   baseURL: 'http://45.136.70.211:8000/',
   withCredentials: true,
   timeout: 5000,
-  headers: { 'X-Custom-Header': 'foobar', Authorization: `Bearer ${localStorage.getItem("access_token")}` }
+  headers: { 'X-Custom-Header': 'foobar', Authorization: `Bearer ${localStorage.getItem("access_token")}` },
 });
 
+let refresh = false;
 
+api.interceptors.response.use(async (response) => {
+  return response
+}, async error => {
+  if (error.response.status === 401 && !refresh) {
+    refresh = true; 
+    refreshToken()
+    window.location.reload()
+  }
+  refresh = false
+  return error;
+})
 // auth
 
 export const register = async (email, username, password) => {
@@ -39,12 +51,12 @@ export const logout = () => {
   api.post(`auth/logout`)
   localStorage.removeItem('user')
   localStorage.removeItem('access_token')
-  
+
 }
 
 
 export const refreshToken = () => {
-  api.post(`auth/refreshToken`)
+  api.get(`auth/refreshToken`)
     .then(response => {
       console.log(response)
       localStorage.setItem("access_token", response.data.accessToken)
@@ -58,8 +70,19 @@ export const createQuiz = (name, description, category, questions, creator, imag
     description: description,
     category: category,
     questions: questions,
-    creator: creator
+    creator: creator,
+    image: image
   })
+}
+
+export const deleteQuiz = (user, quizID) => {
+  api.post('/quiz/deleteQuiz', {
+    user: user,
+    quizID: quizID
+  })
+    .then(response => {
+      console.log(response)
+    })
 }
 
 export const getQuizesByUser = (username) => {

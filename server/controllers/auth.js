@@ -6,6 +6,9 @@ const path = require('path')
 const mongoose = require('mongoose')
 const UserModel = require('../models/users')
 
+const ACCESS_TOKEN_EXPIRE = '15m'
+const REFRESH_TOKEN_EXPIRE = '1d'
+
 const login = async (req, res) => {
 
     const { email, username, password } = req.body;
@@ -19,21 +22,21 @@ const login = async (req, res) => {
         }, (err, user) => {
             if (err) { res.send(err) }
             if (!user) {
-                res.status(401).send('Username or email does not exist.')
+                res.status(400).send('Username or email does not exist.')
             } else {
                 const validatePassword = async () => {
                     const currentPassword = user.password;
                     const match = await bcrypt.compare(password, currentPassword)
                     if (match) {
-                        const accessToken = jwt.sign({ username }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '30m' })
-                        const refreshToken = jwt.sign({ username }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '1d' })
+                        const accessToken = jwt.sign({ username }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: ACCESS_TOKEN_EXPIRE })
+                        const refreshToken = jwt.sign({ username }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: REFRESH_TOKEN_EXPIRE })
 
                         // res.cookie('access_token', accessToken, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 })
 
                         res.cookie('refresh_token', refreshToken, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 })
                         res.json({ success: true, username, accessToken })
                     } else {
-                        res.status(401).send('Password does not match.')
+                        res.status(400).send('Password does not match.')
                     }
                 }
                 validatePassword();
@@ -72,7 +75,7 @@ const register = async (req, res) => {
 
 const logout = (req, res) => {
     res.cookie('refresh_token', '', { maxAge: 0 })
-    res.status(201).send('Token removed successfully.')
+    res.status(200).send('Token removed successfully.')
 }
 
 const refreshToken = (req, res) => {
@@ -81,8 +84,8 @@ const refreshToken = (req, res) => {
     if (!cookies.refresh_token) return res.status(401).send('Unauthorized');
 
     jwt.verify(cookies.refresh_token, process.env.REFRESH_TOKEN_SECRET, (err, decoded) => {
-        if (err) return res.status(403);
-        const accessToken = jwt.sign({ "username": decoded.username }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '5m' })
+        if (err) return res.status(401);
+        const accessToken = jwt.sign({ "username": decoded.username }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: ACCESS_TOKEN_EXPIRE })
         res.json({ success: true, err: null, accessToken })
 
     })

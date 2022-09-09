@@ -8,6 +8,15 @@ const CreateQuiz = () => {
 
   const [page, setPage] = useState(0);
 
+  const [quizData, setQuizData] = useState({
+    name: '',
+    category: '',
+    description: '',
+    creator: localStorage.getItem('user'),
+    image: '',
+    questions: []
+  })
+
   const nextPage = () => {
     setPage(page + 1)
   }
@@ -15,14 +24,6 @@ const CreateQuiz = () => {
   const previousPage = () => {
     setPage(page - 1)
   }
-
-
-  const [quizData, setQuizData] = useState({
-    name: '',
-    category: '',
-    description: '',
-    questions: []
-  })
 
   const handlePages = () => {
     switch (page) {

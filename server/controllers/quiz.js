@@ -14,7 +14,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({
     storage: storage,
-    limits: { fileSize: '5000000'},
+    limits: { fileSize: '5000000' },
     fileFilter: (req, file, cb) => {
         const fileTypes = /jpeg|jpg|png|gif/
         const mimeType = fileTypes.test(file.mimetype)
@@ -38,9 +38,9 @@ const createQuiz = async (req, res) => {
             if (!user) res.status(401).send('Unauthorized. User does not exist.')
 
             if (user) {
-                
+
                 const createQuiz = async () => {
-                    const newQuiz = await QuizModel.create({ image: file, name: name, description: description, category: category, creator: user._id, questions: questions }, (err, quiz) => {
+                    const newQuiz = await QuizModel.create({ image: file, name: name, description: description, category: category, creator: user._id, questions: questions, image: image }, (err, quiz) => {
                         if (err) { console.log(err); res.status(401).send(err); }
                         if (quiz) {
                             res.status(201).send('Quiz created successfully.')
@@ -80,6 +80,24 @@ const getQuizesByUser = async (req, res) => {
     // const getuser = await QuizModel.findById({ creator: username })
 }
 
+const deleteQuiz = async (req, res) => {
+    const { user, quizID } = req.body
+    try {
+        UserModel.findOne({ username: user }, (err, user) => {
+            if (err) res.send(err)
+            if (user) {
+                QuizModel.deleteOne({ creator: user, _id: quizID }, (err, succ) => {
+                    if (err) res.send(err)
+                    if (succ) res.send(succ)
+                })
+            }
+        })
+
+    } catch {
+
+    }
+}
+
 const getQuizById = async (req, res) => {
     const id = req.body.id;
     try {
@@ -101,12 +119,12 @@ const getQuizByNum = async (req, res) => {
     await QuizModel.aggregate([{ $sample: { size: amount } }], (err, result) => {
         res.send(result)
     })
-        // let random = Math.floor(Math.random * count)
-        // QuizModel.findOne().skip(random).exec((err, result => {
-        //     console.log(result)
-        //     res.send(result)
-        // }))
-    }
+    // let random = Math.floor(Math.random * count)
+    // QuizModel.findOne().skip(random).exec((err, result => {
+    //     console.log(result)
+    //     res.send(result)
+    // }))
+}
 
 
-module.exports = { createQuiz, getQuizesByUser, getQuizById, getQuizByNum, upload }
+module.exports = { createQuiz, getQuizesByUser, getQuizById, getQuizByNum, deleteQuiz, upload }

@@ -1,23 +1,20 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
+import { api, createQuiz } from 'helpers/api'
 import { Box, Grid, Container, TextField, InputLabel, Button, Stack } from '@mui/material'
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
-import { api, createQuiz } from 'helpers/api'
 
 
 const SecondStep = ({ quizData, setQuizData, nextPage, previousPage }) => {
 
-    const token = localStorage.getItem('access_token')
-
-    const config = {
-        headers: { Authorization: `Bearer ${token}` }
-    };
+    const navigate = useNavigate();
 
     const handleSubmit = async () => {
         await setQuizData({...quizData, creator: localStorage.getItem('user')})
         await createQuiz(quizData.name, quizData.description, quizData.category, quizData.questions, quizData.creator, quizData.image)
-        previousPage();
+        navigate('/profile')
     }
 
     const deleteQuestion = async (index) => {

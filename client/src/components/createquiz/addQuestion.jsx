@@ -10,7 +10,6 @@ const AddQuestion = ({ quizData, setQuizData, previousPage }) => {
     {
       timeLimit: 20,
       question: '',
-      creator: '',
       answer1:
       {
         answer: '',
@@ -71,7 +70,7 @@ const AddQuestion = ({ quizData, setQuizData, previousPage }) => {
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={quizData.timeLimit}
+                value={question.timeLimit}
                 label="Time"
                 onChange={(e) => setQuestion({ ...question, timeLimit: e.target.value })}
                 sx={{ width: `${size < 600 ? '100%' : '50ch'}` }}
