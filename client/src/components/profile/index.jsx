@@ -2,13 +2,14 @@ import React, { useEffect, useState } from 'react'
 import { Box, Grid, Stack } from '@mui/material'
 import { api, deleteQuiz, getQuizes } from 'helpers/api'
 import { useNavigate, useParams } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 import PlayCircleFilledWhiteIcon from '@mui/icons-material/PlayCircleFilledWhite';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 const Profile = () => {
 
-    const username = localStorage.getItem('user');
+    const user = useSelector(state => state.user)
     const navigate = useNavigate();
 
     const [loading, setLoading] = useState(true)
@@ -17,7 +18,7 @@ const Profile = () => {
     // temporary
     useEffect(() => {
         api.post(`quiz/getQuizesByUser`, {
-            username: username
+            username: user
         })
             .then(response => {
                 setData(response.data)
@@ -26,8 +27,9 @@ const Profile = () => {
             })
     }, [])
 
-    const handleDeleteQuiz = () => {
-        deleteQuiz(localStorage.getItem('user'), )
+    const handleDeleteQuiz = (quizID) => {
+        deleteQuiz(user, quizID)
+        setData(data)
     }
 
     return (
@@ -35,7 +37,7 @@ const Profile = () => {
         <Box sx={{ mt: '100px' }}>
             {!loading &&
                 <>
-                    <h1 style={{ textAlign: 'center' }}>Hey there, {username}!</h1>
+                    <h1 style={{ textAlign: 'center' }}>Hey there, {user}!</h1>
                     <h6 style={{ textAlign: 'center' }}>Here are some of your quizzes</h6>
                     <Grid container sx={{ mt: '50px' }}>
                         {data && data.map((quiz, index) => {
@@ -51,7 +53,7 @@ const Profile = () => {
                                                     <Stack direction='row'>
                                                         <PlayCircleFilledWhiteIcon onClick={() => navigate(`/play/${quiz._id}`)} />
                                                         <EditIcon />
-                                                        <DeleteIcon onClick={() => deleteQuiz(localStorage.getItem('user'), quiz._id)} />
+                                                        <DeleteIcon onClick={() => deleteQuiz(user, quiz._id)} />
                                                     </Stack>
                                                 </Stack>
                                             </Box>

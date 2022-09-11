@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { api, createQuiz } from 'helpers/api'
 import { Box, Button, Grid, Container, Stack } from '@mui/material';
+import useWindowSize from 'hooks/useWindowSize';
 
 const Home = () => {
 
+  const size = useWindowSize();
   const navigate = useNavigate()
   const [loading, setLoading] = useState(true);
   const [quizes, setQuizes] = useState([]);
@@ -36,18 +38,18 @@ const Home = () => {
               <p className='secondary-text'>{randomQuiz.description}</p>
               <Button variant='contained' onClick={() => navigate(`/play/${randomQuiz._id}`)}>Play</Button>
             </Box> */}
-            <Grid container sx={{ width: '50vh', border: '1px blue solid', p: 1 }}>
+            <Grid container maxWidth="xl" sx={{ width: `${size < 600 ? '100vw' : '100vw'}`, border: '1px blue solid', p: 1 }}>
               {quizes.map((item, index) => {
                 return (
                   <>
-                    <Grid onClick={() => navigate(`/play/${item._id}`)} item xs={12} sm={12} md={6} lg={4} sx={{ position: 'relative', height: '400px', width: '400px', border: '1px red solid' }}>
+                    <Grid onClick={() => navigate(`/play/${item._id}`)} item xs={6} md={6} lg={4} sx={{ position: 'relative', height: `${size < 600 ? '200px' : '400px'}`, width: '400px', border: '1px red solid' }}>
                       <img src={`http://45.136.70.211:8000/images/${item.image}`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                       <Stack spacing={1} sx={{ position: 'absolute', bottom: 0, p: 1, width: '100%' }}>
                         <Box sx={{ width: 'fit-content', borderRadius: '5px', background: '#fff', p: 0.5 }}>
-                          <h2 style={{ height: '100%', margin: 0, padding: 0 }}>{item.category}</h2>
+                          <h4 style={{ height: '100%', margin: 0, padding: 0, fontSize: `${size < 600 ? '14px' : '16px'}` }}>{item.category}</h4>
                         </Box>
                         <Box sx={{ width: '100%', borderRadius: '5px', background: '#fff', p: 0.5 }}>
-                          <h4 style={{ height: '100%', margin: 0, padding: 1 }}>{item.name}</h4>
+                          <h4 style={{ height: '100%', margin: 0, padding: 1, fontSize: `${size < 600 ? '14px' : '20px'}` }}>{item.name}</h4>
                         </Box>
                       </Stack>
                     </Grid>

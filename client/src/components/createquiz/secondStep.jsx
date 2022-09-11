@@ -2,6 +2,7 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom';
 import { api, createQuiz } from 'helpers/api'
 import { Box, Grid, Container, TextField, InputLabel, Button, Stack } from '@mui/material'
+import { useSelector } from 'react-redux'
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
@@ -9,10 +10,11 @@ import AddIcon from '@mui/icons-material/Add';
 
 const SecondStep = ({ quizData, setQuizData, nextPage, previousPage }) => {
 
+    const user = useSelector(state => state.user)
     const navigate = useNavigate();
 
     const handleSubmit = async () => {
-        await setQuizData({...quizData, creator: localStorage.getItem('user')})
+        await setQuizData({...quizData, creator: user})
         await createQuiz(quizData.name, quizData.description, quizData.category, quizData.questions, quizData.creator, quizData.image)
         navigate('/profile')
     }

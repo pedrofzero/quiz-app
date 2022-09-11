@@ -43,14 +43,15 @@ export const login = (username, password) =>
     .then((response) => {
       console.log(response.status)
 
-      localStorage.setItem("user", response.data.username)
+      // localStorage.setItem("user", response.data.username)
       localStorage.setItem("access_token", response.data.accessToken)
     })
 
 export const logout = () => {
-  api.post(`auth/logout`)
-  localStorage.removeItem('user')
+  // localStorage.removeItem('user')
   localStorage.removeItem('access_token')
+  api.post(`auth/logout`)
+
 
 }
 

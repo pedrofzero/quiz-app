@@ -32,7 +32,7 @@ const login = async (req, res) => {
                         const refreshToken = jwt.sign({ username }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: REFRESH_TOKEN_EXPIRE })
 
                         // res.cookie('access_token', accessToken, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 })
-
+                        
                         res.cookie('refresh_token', refreshToken, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 })
                         res.json({ success: true, username, accessToken })
                     } else {

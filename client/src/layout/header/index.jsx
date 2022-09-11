@@ -3,19 +3,24 @@ import useWindowSize from 'hooks/useWindowSize';
 import { useNavigate } from 'react-router-dom';
 import { Box, Stack, Button } from '@mui/material'
 import { api, logout } from 'helpers/api';
+import { setUser } from 'redux/authSlice'
+import { useSelector, useDispatch } from 'react-redux'
 import MenuIcon from '@mui/icons-material/Menu';
 
 const Header = ({ menuOpen, setMenuOpen }) => {
 
+  const dispatch = useDispatch()
+  const user = useSelector(state => state.user)
   const navigate = useNavigate();
   const path = window.location.pathname;
   const size = useWindowSize();
 
   const handleLogout = async () => {
     await logout();
+    dispatch(setUser(''))
     navigate('/login')
   }
-  
+
   return (
     <>
 
@@ -66,7 +71,7 @@ const Header = ({ menuOpen, setMenuOpen }) => {
               <>
                 <Stack direction='row' spacing={8}>
                   <h5 style={{ color: '#848282' }}>Browse</h5>
-                  <h5 onClick={() => navigate(`/quizes/${localStorage.getItem('user')}`)} style={{ color: '#848282' }}>My quizzes</h5>
+                  <h5 onClick={() => navigate(`/quizes/${user}`)} style={{ color: '#848282' }}>My quizzes</h5>
                   <h5 onClick={() => handleLogout()} style={{ color: '#848282' }}>Logout</h5>
                 </Stack>
                 <Stack direction='row' spacing={4}>

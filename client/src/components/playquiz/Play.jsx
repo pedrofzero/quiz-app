@@ -9,6 +9,8 @@ const Play = ({ quiz }) => {
     const [quizEnd, setQuizEnd] = useState(false);
     const [correctCounter, setCorrectCounter] = useState(1);
 
+    console.log(quiz)
+
     const test = (event) => {
         console.log(event)
     }
@@ -32,57 +34,105 @@ const Play = ({ quiz }) => {
     }
 
     return (
-        <Box sx={{}}>
-            <Container>
-                {!quizEnd &&
-                    <Grid container sx={{ m: '0 auto', textAlign: 'center' }}>
-                        <Grid item xs={12} sm={12} sx={{ p: '5em' }}>
-                            <Box>
-                                <h3>
-                                    {quiz.questions[currentQuestion].question}
-                                </h3>
-                            </Box>
-                        </Grid>
-                        <Grid item xs={12} sm={6} sx={{ p: '2em' }}>
-                            <Box onClick={(e) => nextQuestion(quiz.questions[currentQuestion].answer1.isCorrect)} style={styles.answerBox}>
+        <Container>
+            {!quizEnd &&
+                <>
+                    <h3 style={{ textAlign: 'center', paddingBottom: '1em' }}>
+                        {quiz.questions[currentQuestion].question}
+                    </h3>
+                    <Grid container sx={{ m: '0 auto', textAlign: 'center', width: '100%', p: 1 }}>
+                        <Grid item xs={12} sm={6} sx={{ width: '100%', p: '1em' }}>
+                            <Box onClick={(e) => nextQuestion(quiz.questions[currentQuestion].answer1.isCorrect)}
+                                sx={{
+                                    background: '#fffaf0',
+                                    border: '1px solid black',
+                                    borderRadius: '5px',
+                                    width: '100%',
+                                    height: '50px',
+                                    margin: '0 auto',
+                                    '&:hover': {
+                                        background: '#476442',
+                                        color: '#fff'
+                                    }
+                                }}
+                            >
                                 <h4 style={styles.centeredAnswer}>
                                     {quiz.questions[currentQuestion].answer1.answer}
                                 </h4>
                             </Box>
                         </Grid>
-                        <Grid item xs={12} sm={6} sx={{ p: '2em' }}>
-                            <Box onClick={() => nextQuestion(quiz.questions[currentQuestion].answer2.isCorrect)} style={styles.answerBox}>
+                        <Grid item xs={12} sm={6} sx={{ width: '100%', p: '1em' }}>
+                            <Box onClick={() => nextQuestion(quiz.questions[currentQuestion].answer2.isCorrect)}
+                                sx={{
+                                    background: '#fffaf0',
+                                    border: '1px solid black',
+                                    borderRadius: '5px',
+                                    width: '100%',
+                                    height: '50px',
+                                    margin: '0 auto',
+                                    '&:hover': {
+                                        background: '#476442',
+                                        color: '#fff'
+                                    }
+                                }}
+                            >
                                 <h4 style={styles.centeredAnswer}>
                                     {quiz.questions[currentQuestion].answer2.answer}
                                 </h4>
                             </Box>
                         </Grid>
-                        <Grid item xs={12} sm={6} sx={{ p: '2em' }}>
-                            <Box onClick={() => nextQuestion(quiz.questions[currentQuestion].answer3.isCorrect)} style={styles.answerBox}>
+                        <Grid item xs={12} sm={6} sx={{ width: '100%', p: '1em' }}>
+                            <Box onClick={() => nextQuestion(quiz.questions[currentQuestion].answer3.isCorrect)}
+                                sx={{
+                                    background: '#fffaf0',
+                                    border: '1px solid black',
+                                    borderRadius: '5px',
+                                    width: '100%',
+                                    height: '50px',
+                                    margin: '0 auto',
+                                    '&:hover': {
+                                        background: '#476442',
+                                        color: '#fff'
+                                    }
+                                }}
+                            >
                                 <h4 style={styles.centeredAnswer}>
                                     {quiz.questions[currentQuestion].answer3.answer}
                                 </h4>
                             </Box>
                         </Grid>
-                        <Grid item xs={12} sm={6} sx={{ p: '2em' }}>
-                            <Box onClick={() => nextQuestion(quiz.questions[currentQuestion].answer4.isCorrect)} style={styles.answerBox}>
+                        <Grid item xs={12} sm={6} sx={{ width: '100%', p: '1em' }}>
+                            <Box onClick={() => nextQuestion(quiz.questions[currentQuestion].answer4.isCorrect)}
+                                sx={{
+                                    background: '#fffaf0',
+                                    border: '1px solid black',
+                                    borderRadius: '5px',
+                                    width: '100%',
+                                    height: '50px',
+                                    margin: '0 auto',
+                                    '&:hover': {
+                                        background: '#476442',
+                                        color: '#fff'
+                                    }
+                                }}
+                            >
                                 <h4 style={styles.centeredAnswer}>
                                     {quiz.questions[currentQuestion].answer4.answer}
                                 </h4>
                             </Box>
                         </Grid>
                     </Grid>
-                }
-                {quizEnd &&
-                    <>
+                </>
+            }
+            {quizEnd &&
+                <>
 
-                        <h1>yo</h1>
+                    <h1>yo</h1>
 
-                    </>
+                </>
 
-                }
-            </Container>
-        </Box>
+            }
+        </Container>
     )
 }
 
@@ -92,7 +142,7 @@ const styles = {
         background: '#0fc0fc',
         border: '1px solid black',
         borderRadius: '5px',
-        width: '250px',
+        width: '100%',
         height: '50px',
         margin: '0 auto'
     },

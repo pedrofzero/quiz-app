@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { Box, Grid, Stack } from '@mui/material'
 import { api, deleteQuiz, getQuizes } from 'helpers/api'
 import { useNavigate, useParams } from 'react-router-dom'
 import PlayCircleFilledWhiteIcon from '@mui/icons-material/PlayCircleFilledWhite';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import Cookies from 'js-cookie'
 
 const Quizes = () => {
 

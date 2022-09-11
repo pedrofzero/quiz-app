@@ -1,12 +1,13 @@
 import React from 'react'
 import { Box } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 import { logout } from 'helpers/api'
 import './index.css'
 
 const Menu = ({ menuOpen, setMenuOpen }) => {
 
-    const user = localStorage.getItem('user')
+    const user = useSelector(state => state.user)
     const navigate = useNavigate();
 
     const goToHome =  () => {
@@ -55,6 +56,7 @@ const Menu = ({ menuOpen, setMenuOpen }) => {
                     <>
                     <li>Browse</li>
                     <li onClick={() => goToMyQuizes()}>My quizes</li>
+                    <li onClick={() => goToCreateQuiz()}>Create quiz</li>
                     <li>Settings</li>
                     <li onClick={() => handleLogout()}>Logout</li>
                     </>    

@@ -5,9 +5,13 @@ import { login } from 'helpers/api';
 import * as yup from 'yup';
 import { useFormik } from 'formik'
 import useWindowSize from 'hooks/useWindowSize';
+import { useDispatch } from 'react-redux'
+import { setUser } from 'redux/authSlice'
+
 
 const Login = () => {
 
+  const dispatch = useDispatch();
   const size = useWindowSize()
 
   const [username, setUsername] = useState("");
@@ -17,6 +21,7 @@ const Login = () => {
 
   const handleSubmit = async () => {
     await login(username, password)
+    dispatch(setUser(username))
     navigate('/home')
     window.location.reload()
   }
