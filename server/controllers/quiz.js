@@ -126,5 +126,19 @@ const getQuizByNum = async (req, res) => {
     // }))
 }
 
+const updateTimesPlayed = async (req, res) => {
+    const id = req.body.id;
+    try {
+        QuizModel.findByIdAndUpdate(id, { $inc: {timesPlayed: 1} }, (err, result) => {
+            if (err) res.send(err)
+            if (result) {
+                res.send(result)
+            }
+        })
+    } catch {
 
-module.exports = { createQuiz, getQuizesByUser, getQuizById, getQuizByNum, deleteQuiz, upload }
+    }
+}
+
+
+module.exports = { createQuiz, getQuizesByUser, getQuizById, getQuizByNum, deleteQuiz, updateTimesPlayed, upload }

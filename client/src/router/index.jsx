@@ -19,14 +19,16 @@ const Router = () => {
                     <Routes>
                         <Route exact path="/login" element={<Login />} />
                         <Route exact path="/register" element={<Register />} />
-                        
+
                         <Route exact path="/" element={
                             <Home />
                         }
                         />
 
                         <Route exact path="/home" element={
-                            <Home />
+                            <ProtectedRoute>
+                                <Home />
+                            </ProtectedRoute>
                         }
                         />
 
@@ -50,8 +52,8 @@ const Router = () => {
                             </ProtectedRoute>
                         }
                         />
-                        
-                        <Route exact path="/play/:id" element={
+
+                        <Route exact path="/play/:quizId" element={
                             <ProtectedRoute>
                                 <PlayQuiz />
                             </ProtectedRoute>

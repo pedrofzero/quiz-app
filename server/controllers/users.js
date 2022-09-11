@@ -15,5 +15,19 @@ const getUsers = async (req, res) => {
     }
 }
 
+const getUserById = async (req, res) => {
+    const id = req.body.id;
 
-module.exports = { getUsers }
+    try {
+        UserModel.findById(id, (err, result) => {
+            if (err) res.send(err)
+            if (result) {
+                res.send(result.username)
+            }
+        })
+    } catch {
+
+    }
+}
+
+module.exports = { getUsers, getUserById }

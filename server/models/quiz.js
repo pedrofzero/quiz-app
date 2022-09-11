@@ -49,7 +49,7 @@ const quizSchema = mongoose.Schema({
                         required: true,
                     },
                     isCorrect: {
-                        type: String,
+                        type: Boolean,
                         required: true,
                     }
                 },
@@ -61,7 +61,7 @@ const quizSchema = mongoose.Schema({
                         required: true,
                     },
                     isCorrect: {
-                        type: String,
+                        type: Boolean,
                         required: true,
                     }
                 },
@@ -73,7 +73,7 @@ const quizSchema = mongoose.Schema({
                         required: true,
                     },
                     isCorrect: {
-                        type: String,
+                        type: Boolean,
                         required: true,
                     }
                 },
@@ -85,7 +85,7 @@ const quizSchema = mongoose.Schema({
                         required: true,
                     },
                     isCorrect: {
-                        type: String,
+                        type: Boolean,
                         required: true,
                     }
                 },

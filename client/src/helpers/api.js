@@ -17,7 +17,7 @@ api.interceptors.response.use(async (response) => {
   if (error.response.status === 401 && !refresh) {
     refresh = true; 
     refreshToken()
-    window.location.reload()
+    // window.location.reload()
   }
   refresh = false
   return error;
@@ -102,4 +102,18 @@ export const getQuizById = (id) => {
     .then(response => {
       console.log(response)
     })
-} 
+}
+
+// export const getUserById = (id) => {
+//   api.post('/quiz/getUserById')
+//   .then(response => )
+// } 
+
+export const updateTimesPlayed = (id) => {
+  api.post('/quiz/updateTimesPlayed', {
+    id: id
+  })
+  .then(response => {
+    console.log(response)
+  })
+}
