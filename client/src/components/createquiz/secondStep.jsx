@@ -5,7 +5,7 @@ import { Box, Grid, Container, TextField, InputLabel, Button, Stack } from '@mui
 import { useSelector } from 'react-redux'
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import AddIcon from '@mui/icons-material/Add';
+import AddIcon from '@mui/icons-material/Add'
 
 
 const SecondStep = ({ quizData, setQuizData, nextPage, previousPage }) => {

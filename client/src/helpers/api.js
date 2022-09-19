@@ -43,6 +43,8 @@ export const login = (username, password) =>
     .then((response) => {
       console.log(response.status)
 
+      // check if error with status, provide message to user on fail.
+
       // localStorage.setItem("user", response.data.username)
       localStorage.setItem("access_token", response.data.accessToken)
     })
@@ -54,7 +56,6 @@ export const logout = () => {
 
 
 }
-
 
 export const refreshToken = () => {
   api.get(`auth/refreshToken`)

@@ -70,9 +70,9 @@ const Header = ({ menuOpen, setMenuOpen }) => {
             {size > 900 ?
               <>
                 <Stack direction='row' spacing={8}>
-                  <h5 style={{ color: '#848282' }}>Browse</h5>
-                  <h5 onClick={() => navigate(`/quizes/${user}`)} style={{ color: '#848282' }}>My quizzes</h5>
-                  <h5 onClick={() => handleLogout()} style={{ color: '#848282' }}>Logout</h5>
+                  {/* <h5 style={{ color: '#848282' }}>Browse</h5> */}
+                  <h5 onClick={() => navigate(`/profile`)} style={{ color: '#848282', cursor: 'pointer' }}>My quizzes</h5>
+                  <h5 onClick={() => handleLogout()} style={{ color: '#848282', cursor: 'pointer' }}>Logout</h5>
                 </Stack>
                 <Stack direction='row' spacing={4}>
                   <Button onClick={() => navigate('/createQuiz')} variant='contained' sx={{ backgroundColor: '#327490' }}>

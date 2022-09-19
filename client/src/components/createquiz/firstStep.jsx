@@ -6,7 +6,7 @@ import useWindowSize from 'hooks/useWindowSize'
 const FirstStep = ({ quizData, setQuizData, nextPage }) => {
 
     const size = useWindowSize();
-    const [file, setFile] = useState('https://greenvolt.com.br/wp-content/uploads/2018/05/ef3-placeholder-image.jpg');
+    const [file, setFile] = useState('placeholder.jpg');
 
     const setImage = (e) => {
         const image = e.target.files[0]
@@ -84,7 +84,7 @@ const FirstStep = ({ quizData, setQuizData, nextPage }) => {
                     {/* {size < 1200 && <Box></Box>} */}
                     <Grid item xs={12} lg={5} xl={4} sx={{ pt: `${size < 1200 ? '50px' : '0px'}`, width: '50%' }}>
                         <Box sx={{ border: '1px black solid', borderRadius: '5px' }}>
-                            <img style={{ height: `${size < 1200 ? '400px' : '100%'}`, width: '100%', objectFit: 'cover' }} src={file} />
+                            <img style={{ height: `${size < 1200 ? '100%' : '100%'}`, width: '100%', objectFit: 'cover' }} src={file} />
                         </Box>
 
                         {/* image */}

@@ -42,7 +42,7 @@ const Home = () => {
               {quizes.map((item, index) => {
                 return (
                   <>
-                    <Grid onClick={() => navigate(`/play/${item._id}`)} item xs={6} md={6} lg={4} sx={{ position: 'relative', height: `${size < 600 ? '200px' : '400px'}`, width: '400px'  }}>
+                    <Grid key={index} onClick={() => navigate(`/play/${item._id}`)} item xs={6} md={6} lg={4} sx={{ position: 'relative', height: `${size < 600 ? '200px' : '400px'}`, width: '400px'  }}>
                       <img src={`http://45.136.70.211:8000/images/${item.image}`} style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '5px' }} />
                       <Stack spacing={1} sx={{ position: 'absolute', bottom: 0, p: 1, width: '100%' }}>
                         <Box sx={{ width: 'fit-content', borderRadius: '5px', background: '#fff', p: 0.5 }}>

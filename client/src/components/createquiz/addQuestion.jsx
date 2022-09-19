@@ -92,13 +92,12 @@ const AddQuestion = ({ quizData, setQuizData, previousPage }) => {
   }
 
   return (
-    <Box sx={{ margin: '0 auto', backgroundColor: '#D9D9D9', borderRadius: '5px', width: '100%', height: '100%' }}>
-      <Box sx={{ position: 'relative', top: '2.5%', margin: '0 auto', backgroundColor: '#fff', borderRadius: '5px', width: '95%', height: '95%', textAlign: 'center' }}>
+      <Box sx={{ margin: '0 auto',  borderRadius: '5px', width: '95%', height: '95%', textAlign: 'center' }}>
         <h1 style={{ paddingTop: '20px' }}>It's time to insert your question!</h1>
         <p className='secondary-text'>Add up to 4 answers and tick the correct one.</p>
 
         {/* <Container maxWidth='lg'> */}
-        <Box sx={{ mt: '50px', px: 2, overflow: 'scroll' }}>
+        <Box sx={{ mt: '50px', px: 2,}}>
           <h3>Question</h3>
 
           <Grid container sx={{ pt: 4, margin: 'auto', textAlign: 'center' }}>
@@ -204,7 +203,6 @@ const AddQuestion = ({ quizData, setQuizData, previousPage }) => {
         </Stack>
         {/* </Container> */}
       </Box>
-    </Box>
   )
 }
 

@@ -21,7 +21,9 @@ const Router = () => {
                         <Route exact path="/register" element={<Register />} />
 
                         <Route exact path="/" element={
+                            <ProtectedRoute>
                             <Home />
+                        </ProtectedRoute>
                         }
                         />
 
