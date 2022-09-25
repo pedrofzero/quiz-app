@@ -11,7 +11,7 @@ const path = require('path')
 const uuid4 = require("uuid").v4
 
 // cors
-app.use(cors({ credentials: true, origin: 'http://45.136.70.211:3000' }))
+app.use(cors({ credentials: true, origin: "http://localhost:3000" }))
 
 // json
 app.use(express.json())
